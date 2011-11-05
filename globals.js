@@ -3,6 +3,7 @@ global.proto = require('./proto').proto;
 global.exec = require('./exec').exec;
 global.Timer = require('./exec').Timer;
 global.once = require('./once').once;
+exports.onShutdown = require('./exec').onShutdown;
 
 function throttled(cb, delay) {
   var timeout
