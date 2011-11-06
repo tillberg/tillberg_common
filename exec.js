@@ -81,7 +81,9 @@ function exec2(cmd, args, opts, cb) {
     out.push(data);
   });
   proc.stderr.on('data', function (data) {
-    process.stderr.write(color('    error in ' + simple + ':\n', 'black', true) + color(data + '', 'red'));
+    if (!opts.quietError) {
+      process.stderr.write(color('    error in ' + simple + ':\n', 'black', true) + color(data + '', 'red'));
+    }
     err.push(data);
   });
   proc.on('exit', function (code) {
