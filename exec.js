@@ -57,7 +57,7 @@ function killLaunchedProcesses() {
 }
 
 function exec2(cmd, args, opts, cb) {
-  var simple = cmd + ' ' + args.join(' ');
+  var simple = _.prune(cmd + ' ' + args.join(' '), 40);
   var printFn = (opts.verbose ? info : verbose);
   printFn('exec2: ' + simple + ' ' + util.inspect(opts));
   if (!opts || !opts.cwd) {
