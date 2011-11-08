@@ -76,12 +76,14 @@ function exec2(cmd, args, opts, cb) {
         proc.stdout.emit('line', line);
       }
     });
+    proc.emit('stdout', data);
     out.push(data);
   });
   proc.stderr.on('data', function (data) {
     if (!opts.quietError) {
       process.stderr.write(color('    error in ' + simple + ':\n', 'black', true) + color(data + '', 'red'));
     }
+    proc.emit('stderr', data);
     err.push(data);
   });
   proc.on('exit', function (code) {
