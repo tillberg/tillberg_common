@@ -1,8 +1,6 @@
-
-var cproc = require('child_process')
-  , util = require('util')
-  , _ = require('underscore')._
-  , events = require('events');
+var cproc = require('child_process');
+var util = require('util');
+var _ = require('underscore')._;
 
 var Timer = (function() {
   var Timer = require('./proto').proto();
