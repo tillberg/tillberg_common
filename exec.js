@@ -67,8 +67,7 @@ function exec2(cmd, args, opts, cb) {
       err = [],
       t = Timer.make();
   function log(x) {
-    if (!opts.pipePlain) { console.log(color(rtrim(x + ''), 'cyan')); }
-    else { process.stdout.write(x + ''); }
+    process.stdout.write(x + '');
   }
   proc.stdout.on('data', function (data) {
     if (opts.pipe || opts.pipeStdout) { log(data); }
@@ -82,7 +81,8 @@ function exec2(cmd, args, opts, cb) {
   });
   proc.stderr.on('data', function (data) {
     if (!opts.quietError) {
-      process.stderr.write(color('    error in ' + simple + ':\n', 'black', true) + color(data + '', 'red'));
+      //process.stderr.write(color('    error in ' + simple + ':\n', 'black', true) + color(data + '', 'red'));
+      log(data);
     }
     proc.emit('stderr', data);
     err.push(data);
