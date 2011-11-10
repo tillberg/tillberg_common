@@ -74,7 +74,7 @@ function exec2(cmd, args, opts, cb) {
     if (opts.pipe || opts.pipeStdout) { log(data); }
     var lineBuffer = lineBuffer + data;
     while (true) {
-      var lineMatch = lineBuffer.match(/.*/);
+      var lineMatch = lineBuffer.match(/.+/);
       if (lineMatch) {
         proc.stdout.emit(lineMatch[0]);
         lineBuffer = lineBuffer.replace(/.*/, '');
