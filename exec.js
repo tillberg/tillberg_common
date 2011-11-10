@@ -71,10 +71,10 @@ function exec2(cmd, args, opts, cb) {
   }
   var lineBuffer = '';
   proc.stdout.on('data', function (data) {
+    error(lineBuffer);
     if (opts.pipe || opts.pipeStdout) { log(data); }
     var lineBuffer = lineBuffer + data;
     while (true) {
-      error(lineBuffer);
       var lineMatch = lineBuffer.match(/(.+)\n/);
       if (lineMatch) {
         debug(lineMatch);
