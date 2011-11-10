@@ -74,10 +74,10 @@ function exec2(cmd, args, opts, cb) {
     if (opts.pipe || opts.pipeStdout) { log(data); }
     var lineBuffer = lineBuffer + data;
     while (true) {
-      var lineMatch = lineBuffer.match(/.+/);
+      var lineMatch = lineBuffer.match(/(.+)\n/);
       if (lineMatch) {
-        proc.stdout.emit(lineMatch[0]);
-        lineBuffer = lineBuffer.replace(/.+/, '').substr(1);
+        proc.stdout.emit(lineMatch[1]);
+        lineBuffer = lineBuffer.replace(/.+\n/, '');
       } else {
         break;
       }
