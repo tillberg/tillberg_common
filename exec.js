@@ -69,13 +69,19 @@ function exec2(cmd, args, opts, cb) {
   function log(x) {
     process.stdout.write(x + '');
   }
+  var lineBuffer = '';
   proc.stdout.on('data', function (data) {
     if (opts.pipe || opts.pipeStdout) { log(data); }
-    _.each((data + '').split('\n'), function(line) {
-      if (line !== '') {
-        proc.stdout.emit('line', line);
+    var lineBuffer = lineBuffer + data;
+    while (true) {
+      var lineMatch = lineBuffer.match(/.*/);
+      if (lineMatch) {
+        proc.stdout.emit(lineMatch[0]);
+        lineBuffer = lineBuffer.replace(/.*/, '');
+      } else {
+        break;
       }
-    });
+    }
     proc.emit('stdout', data);
     out.push(data);
   });
