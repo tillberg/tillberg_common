@@ -71,13 +71,11 @@ function exec2(cmd, args, opts, cb) {
   }
   var lineBuffer = '';
   proc.stdout.on('data', function (data) {
-    error(lineBuffer);
     if (opts.pipe || opts.pipeStdout) { log(data); }
-    var lineBuffer = lineBuffer + data;
+    lineBuffer = lineBuffer + data;
     while (true) {
       var lineMatch = lineBuffer.match(/(.+)\n/);
       if (lineMatch) {
-        debug(lineMatch);
         proc.stdout.emit('line', lineMatch[1]);
         lineBuffer = lineBuffer.replace(/.+\n/, '');
       } else {
