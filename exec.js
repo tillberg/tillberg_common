@@ -77,7 +77,7 @@ function exec2(cmd, args, opts, cb) {
       var lineMatch = lineBuffer.match(/.+/);
       if (lineMatch) {
         proc.stdout.emit(lineMatch[0]);
-        lineBuffer = lineBuffer.replace(/.+/, '');
+        lineBuffer = lineBuffer.replace(/.+/, '').substr(1);
       } else {
         break;
       }
