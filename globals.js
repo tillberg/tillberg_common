@@ -30,7 +30,7 @@ global.toInt = function(x) {
 
 var util = require('util');
 global.debug = function(x, name) {
-  console.error((name ? name + ': ' : '') + util.inspect(x));
+  global.error((name ? name + ': ' : '') + util.inspect(x));
 };
 
 var events  = require('events');
