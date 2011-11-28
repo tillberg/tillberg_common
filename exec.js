@@ -96,8 +96,10 @@ function exec2(cmd, args, opts, cb) {
   proc.on('exit', function (code) {
     printFn(t.elapsed() + '  completed2: ' + simple + (code ? ' (' + code + ')' : ''));
     if (cb) {
-      error(out.join('') + err.join(''));
       cb(code, out.join(''), err.join(''));
+    }
+    if (code) {
+      error(out.join('') + err.join(''));
     }
     removeLaunchedProcess(proc);
   });
