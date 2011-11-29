@@ -61,7 +61,7 @@ global.verbose = function(s) {
 global.throttled = throttled;
 
 global.errorHandler = function(optionalMessage, cbOnError, cbOnSuccess) {
-  if (optionalMessage + '' === '[object Function]') {
+  if (Object.prototype.toString(optionalMessage) == '[object Function]') {
     // The optional message was omitted
     cbOnSuccess = cbOnError;
     cbOnError = optionalMessage;
