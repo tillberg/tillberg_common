@@ -59,3 +59,20 @@ global.verbose = function(s) {
 };
 
 global.throttled = throttled;
+
+global.errorHandler = function(optionalMessage, cbOnError, cbOnSuccess) {
+  if (_.isFunction(optionalMessage)) {
+    // The optional message was omitted
+    cbOnSuccess = cbOnError;
+    cbOnError = optionalMessage;
+    optionalMessage = 'ERR';
+  }
+  return function(err) {
+    if (err) {
+      cbOnError(optionalMessage.replace('ERR', err));
+    } else {
+      cbOnSuccess.apply(this, arguments);
+    }
+  };
+};
+
