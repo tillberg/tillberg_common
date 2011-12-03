@@ -81,5 +81,5 @@ global.errorHandler = function(optionalMessage, cbOnError, cbOnSuccess) {
 };
 
 global.errorHandler.on = function() {
-  errorEvents.on.apply(this, arguments);
+  errorEvents.on.apply(errorEvents, arguments);
 };
