@@ -67,9 +67,9 @@ global.errorHandler = function(optionalMessage, cbOnError, cbOnSuccess) {
     cbOnError = optionalMessage;
     optionalMessage = 'ERR';
   }
-  return function(err, arg0) {
+  return function(err, arg0, arg1) {
     if (err) {
-      cbOnError(optionalMessage.replace('ERR', err).replace('ARG0', arg0));
+      cbOnError(optionalMessage.replace('ERR', err).replace('ARG0', arg0).replace('ARG1', arg1));
     } else {
       cbOnSuccess.apply(this, arguments);
     }
