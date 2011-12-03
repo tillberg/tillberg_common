@@ -60,6 +60,8 @@ global.verbose = function(s) {
 
 global.throttled = throttled;
 
+var errorEvents = new events.EventEmitter();
+
 global.errorHandler = function(optionalMessage, cbOnError, cbOnSuccess) {
   if (!cbOnSuccess) {
     // The optional message was omitted
@@ -69,10 +71,15 @@ global.errorHandler = function(optionalMessage, cbOnError, cbOnSuccess) {
   }
   return function(err, arg0, arg1) {
     if (err) {
-      cbOnError(optionalMessage.replace('ERR', err).replace('ARG0', arg0).replace('ARG1', arg1));
+      var msg = optionalMessage.replace('ERR', err).replace('ARG0', arg0).replace('ARG1', arg1);
+      errorEvents.emit('error', msg);
+      cbOnError(msg);
     } else {
       cbOnSuccess.apply(this, arguments);
     }
   };
 };
 
+global.errorHandler.on = function() {
+  errorEvents.on.apply(this, arguments);
+};
