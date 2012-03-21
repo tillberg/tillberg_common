@@ -9,15 +9,27 @@ exports.onShutdown = require('./exec').onShutdown;
 
 function throttled(cb, delay) {
   var timeout
-    , fire = false;
+    , fire = false
+    , lastfire = false;
+  function time() {
+    return (new Date()).getTime();
+  }
   return function() {
     if (!timeout) {
-      cb();
-      timeout = setTimeout(function() {
-        if (fire) { cb(); }
-        timeout = undefined;
-        fire = false;
-      }, delay);
+      var nextDelay = delay - (time() - lastfire);
+      if (nextDelay <= 0) {
+        cb();
+        lastfire = time();
+      } else {
+        timeout = setTimeout(function() {
+          if (fire) {
+            cb();
+            lastfire = time();
+          }
+          timeout = undefined;
+          fire = false;
+        }, nextDelay);
+      }
     } else {
       fire = true;
     }
