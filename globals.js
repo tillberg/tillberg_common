@@ -39,7 +39,7 @@ function throttled(cb, delay) {
 var StopWatch = (function () {
   var StopWatch = proto();
   function outputAvg() {
-    info('[' + this.name + '] num: ' + this.num + ', avg: ' + (this.sum / this.num));
+    info('[%s] num: %d, avg: %d ms', this.name, this.num, Math.round(1000 * this.sum / this.num));
     this.num = 0;
     this.sum = 0;
   }
@@ -84,23 +84,27 @@ var events  = require('events');
 var logger = new events.EventEmitter();
 exports.logger = logger;
 
-global.error = function(s) {
+global.error = function () {
+  var s = util.format(arguments);
   logger.emit('data', 'error', s);
   console.error(color.set(s, "red"));
 };
 
-global.warn = function(s) {
+global.warn = function () {
+  var s = util.format(arguments);
   logger.emit('data', 'warn', s);
   console.log(color.set(s, "yellow"));
 };
 
 
-global.info = function(s) {
+global.info = function () {
+  var s = util.format(arguments);
   logger.emit('data', 'info', s);
   console.log(color.set(s, "black", true));
 };
 
-global.verbose = function(s) {
+global.verbose = function () {
+  var s = util.format(arguments);
   logger.emit('data', 'verbose', s);
   //console.log(color.set(s, "black", true));
 };
