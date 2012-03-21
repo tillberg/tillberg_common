@@ -98,7 +98,7 @@ global.warn = function () {
 
 
 global.info = function () {
-  var s = util.format([].slice.call(arguments));
+  var s = util.format.apply(null, arguments);
   logger.emit('data', 'info', s);
   console.log(color.set(s, "black", true));
 };
