@@ -48,7 +48,7 @@ var StopWatch = (function () {
     this.sum = 0;
     this.num = 0;
     var self = this;
-    this.outputAvg = throttled(function() { outputAvg.call(self); }, 1000);
+    this.outputAvg = throttled(function() { outputAvg.call(self); }, 5000);
   };
   StopWatch.start = function() {
     var t = time();
