@@ -85,13 +85,13 @@ var logger = new events.EventEmitter();
 exports.logger = logger;
 
 global.error = function () {
-  var s = util.format([].slice.call(arguments));
+  var s = util.format.apply(null, arguments);
   logger.emit('data', 'error', s);
   console.error(color.set(s, "red"));
 };
 
 global.warn = function () {
-  var s = util.format([].slice.call(arguments));
+  var s = util.format.apply(null, arguments);
   logger.emit('data', 'warn', s);
   console.log(color.set(s, "yellow"));
 };
@@ -104,7 +104,7 @@ global.info = function () {
 };
 
 global.verbose = function () {
-  var s = util.format([].slice.call(arguments));
+  var s = util.format.apply(null, arguments);
   logger.emit('data', 'verbose', s);
   //console.log(color.set(s, "black", true));
 };
