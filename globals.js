@@ -39,7 +39,7 @@ function throttled(cb, delay) {
 var StopWatch = (function () {
   var StopWatch = proto();
   function outputAvg() {
-    info('[%s] num: %d, avg: %d ms', this.name, this.num, Math.round(1000 * this.sum / this.num));
+    info('[%s] num: %d, avg: %d ms', this.name, this.num, Math.round(10000 * this.sum / this.num) / 10);
     this.num = 0;
     this.sum = 0;
   }
