@@ -7,13 +7,13 @@ global.Timer = require('./exec').Timer;
 global.once = require('./once').once;
 exports.onShutdown = require('./exec').onShutdown;
 
+function time() {
+  return (new Date()).getTime();
+}
 function throttled(cb, delay) {
   var timeout
     , fire = false
     , lastfire = false;
-  function time() {
-    return (new Date()).getTime();
-  }
   return function() {
     if (!timeout) {
       var nextDelay = delay - (time() - lastfire);
