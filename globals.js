@@ -51,11 +51,11 @@ var StopWatch = (function () {
     this.outputAvg = throttled(function() { outputAvg.call(self); }, 1000);
   };
   StopWatch.start = function() {
-    var t = Timer.make();
+    var t = time();
     var self = this;
     return function () {
       self.num++;
-      self.sum += t.elapsed();
+      self.sum += time() - t;
       self.outputAvg();
     };
   };
