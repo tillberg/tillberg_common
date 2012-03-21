@@ -63,6 +63,14 @@ var StopWatch = (function () {
 })();
 global.StopWatch = StopWatch;
 
+var stopwatches = {};
+global.stopwatch = function (name) {
+  if (!stopwatches[name]) {
+    stopwatches[name] = StopWatch.make(name);
+  }
+  return stopwatches[name].start();
+};
+
 global.toInt = function(x) {
   return parseInt(x + '', 10);
 };
