@@ -36,6 +36,33 @@ function throttled(cb, delay) {
   };
 }
 
+var StopWatch = (function () {
+  var StopWatch = proto();
+  function outputAvg() {
+    info('[' + this.name + '] num: ' + this.num + ', avg: ' + (this.sum / this.num));
+    this.num = 0;
+    this.sum = 0;
+  }
+  StopWatch.init = function (name) {
+    this.name = name;
+    this.sum = 0;
+    this.num = 0;
+    var self = this;
+    this.outputAvg = throttled(function() { outputAvg.call(self); }, 1000);
+  };
+  StopWatch.start = function() {
+    var t = Timer.make();
+    var self = this;
+    return function () {
+      self.num++;
+      self.sum += t.elapsed();
+      self.outputAvg();
+    };
+  };
+  return StopWatch;
+})();
+global.StopWatch = StopWatch;
+
 global.toInt = function(x) {
   return parseInt(x + '', 10);
 };
