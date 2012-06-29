@@ -62,7 +62,7 @@ function exec2(cmd, args, opts, cb) {
   if (!opts || !opts.cwd) {
     error('cwd not specified in ' + simple);
   }
-  var proc = cproc.spawn.call(this, cmd, args, opts),
+  var proc = cproc.spawn(cmd, args, opts),
       out = [],
       err = [],
       t = Timer.make();
